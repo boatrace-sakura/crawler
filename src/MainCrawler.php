@@ -58,74 +58,27 @@ class MainCrawler
             $seconds = 1;
         }
 
-        if (is_null($stadiumId) && is_null($raceNumber)) {
-            return collect($this->crawlWithoutStadiumIdRaceNumber($this->getCrawler($name), $date, $seconds))->recursive();
-        }
-
         if (is_null($stadiumId)) {
-            return collect($this->crawlWithoutStadiumId($this->getCrawler($name), $date, $raceNumber, $seconds))->recursive();
+            $stadiumIds = $this->getStadiumIds($date, $seconds);
+        } else {
+            $stadiumIds = [$stadiumId];
         }
 
         if (is_null($raceNumber)) {
-            return collect($this->crawlWithoutRaceNumber($this->getCrawler($name), $date, $stadiumId, $seconds))->recursive();
+            $raceNumbers = $this->getRaceNumbers();
+        } else {
+            $raceNumbers = [$raceNumber];
         }
 
-        return collect($this->getCrawler($name)->crawl([], $date, $stadiumId, $raceNumber, $seconds))->recursive();
-    }
-
-    /**
-     * @param  \Boatrace\Sakura\Crawlers\BaseCrawler  $crawler
-     * @param  string                                 $date
-     * @param  int                                    $seconds
-     * @return array
-     */
-    protected function crawlWithoutStadiumIdRaceNumber(BaseCrawler $crawler, string $date, int $seconds): array
-    {
         $response = [];
 
-        foreach ($this->getCrawler('stadium')->crawlStadiumId($date, $seconds) as $stadiumId) {
-            foreach (range(1, 12) as $raceNumber) {
-                $response = $crawler->crawl($response, $date, $stadiumId, $raceNumber, $seconds);
+        foreach ($stadiumIds as $stadiumId) {
+            foreach ($raceNumbers as $raceNumber) {
+                $response = $this->getCrawler($name)->crawl($response, $date, $stadiumId, $raceNumber, $seconds);
             }
         }
 
-        return $response;
-    }
-
-    /**
-     * @param  \Boatrace\Sakura\Crawlers\BaseCrawler  $crawler
-     * @param  string                                 $date
-     * @param  int                                    $raceNumber
-     * @param  int                                    $seconds
-     * @return array
-     */
-    protected function crawlWithoutStadiumId(BaseCrawler $crawler, string $date, int $raceNumber, int $seconds): array
-    {
-        $response = [];
-
-        foreach ($this->getCrawler('stadium')->crawlStadiumId($date, $seconds) as $stadiumId) {
-            $response = $crawler->crawl($response, $date, $stadiumId, $raceNumber, $seconds);
-        }
-
-        return $response;
-    }
-
-    /**
-     * @param  \Boatrace\Sakura\Crawlers\BaseCrawler  $crawler
-     * @param  string                                 $date
-     * @param  int                                    $stadiumId
-     * @param  int                                    $seconds
-     * @return array
-     */
-    protected function crawlWithoutRaceNumber(BaseCrawler $crawler, string $date, int $stadiumId, int $seconds): array
-    {
-        $response = [];
-
-        foreach (range(1, 12) as $raceNumber) {
-            $response = $crawler->crawl($response, $date, $stadiumId, $raceNumber, $seconds);
-        }
-
-        return $response;
+        return collect($response)->recursive();
     }
 
     /**
@@ -149,5 +102,23 @@ class MainCrawler
         $builder->addDefinitions(__DIR__ . '/../config/definitions.php');
 
         return $builder->build();
+    }
+
+    /**
+     * @param  string  $date
+     * @param  int     $seconds
+     * @return array
+     */
+    protected function getStadiumIds(string $date, int $seconds): array
+    {
+        return $this->getCrawler('stadium')->crawlStadiumId($date, $seconds);
+    }
+
+    /**
+     * @return array
+     */
+    protected function getRaceNumbers(): array
+    {
+        return range(1, 12);
     }
 }
