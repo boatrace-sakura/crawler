@@ -2,7 +2,6 @@
 
 namespace Boatrace\Sakura;
 
-use Boatrace\Sakura\Converter;
 use Carbon\CarbonImmutable as Carbon;
 use Symfony\Component\BrowserKit\HttpBrowser;
 

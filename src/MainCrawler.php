@@ -5,7 +5,6 @@ namespace Boatrace\Sakura;
 use DI\Container;
 use DI\ContainerBuilder;
 use Illuminate\Support\Collection;
-use Boatrace\Sakura\BaseCrawler;
 
 /**
  * @author shimomo
