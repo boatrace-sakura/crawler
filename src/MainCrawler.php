@@ -5,7 +5,7 @@ namespace Boatrace\Sakura;
 use DI\Container;
 use DI\ContainerBuilder;
 use Illuminate\Support\Collection;
-use Boatrace\Sakura\Crawlers\BaseCrawler;
+use Boatrace\Sakura\BaseCrawler;
 
 /**
  * @author shimomo
@@ -83,7 +83,7 @@ class MainCrawler
 
     /**
      * @param  string  $name
-     * @return \Boatrace\Sakura\Crawlers\BaseCrawler
+     * @return \Boatrace\Sakura\BaseCrawler
      */
     public function getCrawler(string $name): BaseCrawler
     {

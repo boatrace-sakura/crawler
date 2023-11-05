@@ -1,6 +1,6 @@
 <?php
 
-namespace Boatrace\Sakura\Crawlers;
+namespace Boatrace\Sakura;
 
 use Boatrace\Sakura\Converter;
 use Carbon\CarbonImmutable as Carbon;

@@ -1,8 +1,8 @@
 <?php
 
-namespace Boatrace\Sakura\Tests\Crawlers;
+namespace Boatrace\Sakura\Tests;
 
-use Boatrace\Sakura\Crawlers\OddsCrawler;
+use Boatrace\Sakura\OddsCrawler;
 use PHPUnit\Framework\TestCase as PHPUnitTestCase;
 use Symfony\Component\BrowserKit\HttpBrowser;
 

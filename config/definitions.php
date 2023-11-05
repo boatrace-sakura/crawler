@@ -7,19 +7,19 @@ return [
     'MainCrawler' => function ($container) {
         return $container->get('\Boatrace\Sakura\MainCrawler');
     },
-    'NoticeCrawler' => \DI\create('\Boatrace\Sakura\Crawlers\NoticeCrawler')->constructor(
+    'NoticeCrawler' => \DI\create('\Boatrace\Sakura\NoticeCrawler')->constructor(
         \DI\get('HttpBrowser')
     ),
-    'OddsCrawler' => \DI\create('\Boatrace\Sakura\Crawlers\OddsCrawler')->constructor(
+    'OddsCrawler' => \DI\create('\Boatrace\Sakura\OddsCrawler')->constructor(
         \DI\get('HttpBrowser')
     ),
-    'ProgramCrawler' => \DI\create('\Boatrace\Sakura\Crawlers\ProgramCrawler')->constructor(
+    'ProgramCrawler' => \DI\create('\Boatrace\Sakura\ProgramCrawler')->constructor(
         \DI\get('HttpBrowser')
     ),
-    'ResultCrawler' => \DI\create('\Boatrace\Sakura\Crawlers\ResultCrawler')->constructor(
+    'ResultCrawler' => \DI\create('\Boatrace\Sakura\ResultCrawler')->constructor(
         \DI\get('HttpBrowser')
     ),
-    'StadiumCrawler' => \DI\create('\Boatrace\Sakura\Crawlers\StadiumCrawler')->constructor(
+    'StadiumCrawler' => \DI\create('\Boatrace\Sakura\StadiumCrawler')->constructor(
         \DI\get('HttpBrowser')
     ),
     'HttpBrowser' => function ($container) {
