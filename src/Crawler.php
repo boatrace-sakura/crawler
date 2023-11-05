@@ -4,6 +4,7 @@ namespace Boatrace\Sakura;
 
 use DI\Container;
 use DI\ContainerBuilder;
+use Illuminate\Support\Collection;
 
 /**
  * @author shimomo
@@ -37,9 +38,9 @@ class Crawler
     /**
      * @param  string  $name
      * @param  array   $arguments
-     * @return mixed
+     * @return \Illuminate\Support\Collection
      */
-    public function __call(string $name, array $arguments)
+    public function __call(string $name, array $arguments): Collection
     {
         return call_user_func_array([$this->crawler, $name], $arguments);
     }
@@ -47,9 +48,9 @@ class Crawler
     /**
      * @param  string  $name
      * @param  array   $arguments
-     * @return mixed
+     * @return \Illuminate\Support\Collection
      */
-    public static function __callStatic(string $name, array $arguments)
+    public static function __callStatic(string $name, array $arguments): Collection
     {
         return call_user_func_array([self::getInstance(), $name], $arguments);
     }
