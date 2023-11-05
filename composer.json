@@ -12,9 +12,9 @@
     "require": {
         "php": "^8.0",
         "boatrace-sakura/converter": "^1.0",
-        "illuminate/support": "^9.0|^10.0",
+        "illuminate/support": "^9.0 || ^10.0",
         "nesbot/carbon": "^2.0",
-        "php-di/php-di": "^6.0|^7.0",
+        "php-di/php-di": "^6.0 || ^7.0",
         "symfony/browser-kit": "^6.0",
         "symfony/css-selector": "^6.0",
         "symfony/http-client": "^6.0"
