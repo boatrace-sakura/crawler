@@ -10,7 +10,7 @@ use Symfony\Component\DomCrawler\Crawler;
 /**
  * @author shimomo
  */
-class ProgramCrawler extends BaseCrawler
+class ProgramCrawler extends BaseCrawler implements CrawlerInterface
 {
     /**
      * @var int

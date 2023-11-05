@@ -82,14 +82,4 @@ abstract class BaseCrawler
 
         return $response;
     }
-
-    /**
-     * @param  array   $response
-     * @param  string  $date
-     * @param  int     $stadiumId
-     * @param  int     $raceNumber
-     * @param  int     $seconds
-     * @return array
-     */
-    abstract protected function crawl(array $response, string $date, int $stadiumId, int $raceNumber, int $seconds): array;
 }
