@@ -31,7 +31,7 @@ class MainCrawlerTest extends PHPUnitTestCase
     /**
      * @return void
      */
-    public function testCrawlProgramByDateStadiumIdRaceNumber(): void
+    public function testCrawlProgram(): void
     {
         $response = $this->crawler->crawlProgram('2017-03-31', 24, 1, $this->seconds);
         $this->assertSame('2017-03-31', $response->get('stadiums')->get(24)->get('races')->get(1)->get('date'));
