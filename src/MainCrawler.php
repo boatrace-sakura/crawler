@@ -28,7 +28,9 @@ class MainCrawler
     {
         Collection::macro('recursive', function () {
             return $this->map(function ($value) {
-                return is_array($value) || is_object($value) ? collect($value)->recursive() : $value;
+                return is_array($value) || is_object($value)
+                    ? collect($value)->recursive()
+                    : $value;
             });
         });
     }
@@ -40,7 +42,9 @@ class MainCrawler
      */
     public function __call(string $name, array $arguments): Collection
     {
-        return call_user_func_array([$this, 'crawl'], array_merge([mb_strtolower(str_replace('crawl', '', $name))], $arguments));
+        return call_user_func_array([$this, 'crawl'], array_merge([
+            mb_strtolower(str_replace('crawl', '', $name)),
+        ], $arguments));
     }
 
     /**

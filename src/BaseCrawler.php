@@ -37,7 +37,9 @@ abstract class BaseCrawler
      */
     protected function filterXPath(Crawler $crawler, string $xpath): ?string
     {
-        return count($crawler->filterXPath($xpath)) ? Converter::convertToString($crawler->filterXPath($xpath)->text()) : null;
+        return count($crawler->filterXPath($xpath))
+            ? Converter::convertToString($crawler->filterXPath($xpath)->text())
+            : null;
     }
 
     /**
@@ -47,7 +49,9 @@ abstract class BaseCrawler
      */
     protected function filterXPathForWindDirection(Crawler $crawler, string $xpath): ?string
     {
-        return count($crawler->filterXPath($xpath)) ? Converter::convertToString($crawler->filterXPath($xpath)->attr('class')) : null;
+        return count($crawler->filterXPath($xpath))
+            ? Converter::convertToString($crawler->filterXPath($xpath)->attr('class'))
+            : null;
     }
 
     /**
@@ -57,7 +61,9 @@ abstract class BaseCrawler
      */
     protected function filterXPathForOdds(Crawler $crawler, string $xpath): ?float
     {
-        return count($crawler->filterXPath($xpath)) ? Converter::convertToFloat($crawler->filterXPath($xpath)->text()) : null;
+        return count($crawler->filterXPath($xpath))
+            ? Converter::convertToFloat($crawler->filterXPath($xpath)->text())
+            : null;
     }
 
     /**
