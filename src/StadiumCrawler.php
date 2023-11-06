@@ -21,10 +21,9 @@ class StadiumCrawler extends BaseCrawler
 
     /**
      * @param  string  $date
-     * @param  int     $seconds
      * @return array
      */
-    public function crawlStadiumId(string $date, int $seconds): array
+    public function crawlStadiumId(string $date): array
     {
         $response = [];
 
@@ -33,7 +32,7 @@ class StadiumCrawler extends BaseCrawler
         $crawlerFormat = '%s/owpc/pc/race/index?hd=%s';
         $crawlerUrl = sprintf($crawlerFormat, $this->baseUrl, $boatraceDate);
         $crawler = $this->httpBrowser->request('GET', $crawlerUrl);
-        sleep($seconds);
+        sleep($this->seconds);
 
         $crawler->filter('.table1')->eq(0)->filter('table tbody td.is-arrow1.is-fBold.is-fs15')->each(function ($element) use (&$response) {
             $response[] = Converter::convertToStadiumId(str_replace('>', '', $element->filter('a')->filter('img')->attr('alt')));
@@ -44,10 +43,9 @@ class StadiumCrawler extends BaseCrawler
 
     /**
      * @param  string  $date
-     * @param  int     $seconds
      * @return array
      */
-    public function crawlStadiumName(string $date, int $seconds): array
+    public function crawlStadiumName(string $date): array
     {
         $response = [];
 
@@ -56,7 +54,7 @@ class StadiumCrawler extends BaseCrawler
         $crawlerFormat = '%s/owpc/pc/race/index?hd=%s';
         $crawlerUrl = sprintf($crawlerFormat, $this->baseUrl, $boatraceDate);
         $crawler = $this->httpBrowser->request('GET', $crawlerUrl);
-        sleep($seconds);
+        sleep($this->seconds);
 
         $crawler->filter('.table1')->eq(0)->filter('table tbody td.is-arrow1.is-fBold.is-fs15')->each(function ($element) use (&$response) {
             $response[] = str_replace('>', '', $element->filter('a')->filter('img')->attr('alt'));

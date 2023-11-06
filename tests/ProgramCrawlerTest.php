@@ -17,11 +17,6 @@ class ProgramCrawlerTest extends PHPUnitTestCase
     protected $crawler;
 
     /**
-     * @var int
-     */
-    protected $seconds = 1;
-
-    /**
      * @return void
      */
     public function setUp(): void
@@ -34,7 +29,7 @@ class ProgramCrawlerTest extends PHPUnitTestCase
      */
     public function testCrawl(): void
     {
-        $response = $this->crawler->crawl([], '2017-03-31', 24, 1, $this->seconds);
+        $response = $this->crawler->crawl([], '2017-03-31', 24, 1);
         $this->assertSame('2017-03-31', $response['stadiums'][24]['races'][1]['date']);
         $this->assertSame(24, $response['stadiums'][24]['races'][1]['stadium_id']);
         $this->assertSame(1, $response['stadiums'][24]['races'][1]['race_number']);
@@ -187,7 +182,7 @@ class ProgramCrawlerTest extends PHPUnitTestCase
      */
     public function testCrawlInCaseOfCancellation(): void
     {
-        $response = $this->crawler->crawl([], '2019-10-14', 2, 1, $this->seconds);
+        $response = $this->crawler->crawl([], '2019-10-14', 2, 1);
         $this->assertSame('2019-10-14', $response['stadiums'][2]['races'][1]['date']);
         $this->assertSame(2, $response['stadiums'][2]['races'][1]['stadium_id']);
         $this->assertSame(1, $response['stadiums'][2]['races'][1]['race_number']);

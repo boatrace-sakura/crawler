@@ -35,10 +35,9 @@ class ProgramCrawler extends BaseCrawler implements CrawlerInterface
      * @param  string  $date
      * @param  int     $stadiumId
      * @param  int     $raceNumber
-     * @param  int     $seconds
      * @return array
      */
-    public function crawl(array $response, string $date, int $stadiumId, int $raceNumber, int $seconds): array
+    public function crawl(array $response, string $date, int $stadiumId, int $raceNumber): array
     {
         $date = Converter::convertToDate($date);
         $stadiumId = Converter::convertToInt($stadiumId);
@@ -49,7 +48,7 @@ class ProgramCrawler extends BaseCrawler implements CrawlerInterface
         $crawlerFormat = '%s/owpc/pc/race/racelist?hd=%s&jcd=%02d&rno=%d';
         $crawlerUrl = sprintf($crawlerFormat, $this->baseUrl, $boatraceDate, $stadiumId, $raceNumber);
         $crawler = $this->httpBrowser->request('GET', $crawlerUrl);
-        sleep($seconds);
+        sleep($this->seconds);
 
         $this->baseLevel = 0;
 

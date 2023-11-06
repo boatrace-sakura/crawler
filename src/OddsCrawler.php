@@ -35,10 +35,9 @@ class OddsCrawler extends BaseCrawler implements CrawlerInterface
      * @param  string  $date
      * @param  int     $stadiumId
      * @param  int     $raceNumber
-     * @param  int     $seconds
      * @return array
      */
-    public function crawl(array $response, string $date, int $stadiumId, int $raceNumber, int $seconds): array
+    public function crawl(array $response, string $date, int $stadiumId, int $raceNumber): array
     {
         $date = Converter::convertToDate($date);
         $stadiumId = Converter::convertToInt($stadiumId);
@@ -48,23 +47,23 @@ class OddsCrawler extends BaseCrawler implements CrawlerInterface
 
         $request1 = sprintf('%s/owpc/pc/race/oddstf?hd=%s&jcd=%02d&rno=%d', $this->baseUrl, $boatraceDate, $stadiumId, $raceNumber);
         $crawler1 = $this->httpBrowser->request('GET', $request1);
-        sleep($seconds);
+        sleep($this->seconds);
 
         $request2 = sprintf('%s/owpc/pc/race/odds2tf?hd=%s&jcd=%02d&rno=%d', $this->baseUrl, $boatraceDate, $stadiumId, $raceNumber);
         $crawler2 = $this->httpBrowser->request('GET', $request2);
-        sleep($seconds);
+        sleep($this->seconds);
 
         $request3 = sprintf('%s/owpc/pc/race/oddsk?hd=%s&jcd=%02d&rno=%d', $this->baseUrl, $boatraceDate, $stadiumId, $raceNumber);
         $crawler3 = $this->httpBrowser->request('GET', $request3);
-        sleep($seconds);
+        sleep($this->seconds);
 
         $request4 = sprintf('%s/owpc/pc/race/odds3t?hd=%s&jcd=%02d&rno=%d', $this->baseUrl, $boatraceDate, $stadiumId, $raceNumber);
         $crawler4 = $this->httpBrowser->request('GET', $request4);
-        sleep($seconds);
+        sleep($this->seconds);
 
         $request5 = sprintf('%s/owpc/pc/race/odds3f?hd=%s&jcd=%02d&rno=%d', $this->baseUrl, $boatraceDate, $stadiumId, $raceNumber);
         $crawler5 = $this->httpBrowser->request('GET', $request5);
-        sleep($seconds);
+        sleep($this->seconds);
 
         $this->baseLevel = 0;
 

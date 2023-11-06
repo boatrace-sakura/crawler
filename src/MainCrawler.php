@@ -52,17 +52,12 @@ class MainCrawler
      * @param  string    $date
      * @param  int|null  $stadiumId
      * @param  int|null  $raceNumber
-     * @param  int|null  $seconds
      * @return \Illuminate\Support\Collection
      */
-    public function crawl(string $name, string $date, int $stadiumId = null, int $raceNumber = null, int $seconds = null): Collection
+    public function crawl(string $name, string $date, int $stadiumId = null, int $raceNumber = null): Collection
     {
-        if (is_null($seconds) || $seconds < 0) {
-            $seconds = 1;
-        }
-
         if (is_null($stadiumId)) {
-            $stadiumIds = $this->getStadiumIds($date, $seconds);
+            $stadiumIds = $this->getStadiumIds($date);
         } else {
             $stadiumIds = [$stadiumId];
         }
@@ -77,7 +72,7 @@ class MainCrawler
 
         foreach ($stadiumIds as $stadiumId) {
             foreach ($raceNumbers as $raceNumber) {
-                $response = $this->getCrawler($name)->crawl($response, $date, $stadiumId, $raceNumber, $seconds);
+                $response = $this->getCrawler($name)->crawl($response, $date, $stadiumId, $raceNumber);
             }
         }
 
@@ -109,12 +104,11 @@ class MainCrawler
 
     /**
      * @param  string  $date
-     * @param  int     $seconds
      * @return array
      */
-    protected function getStadiumIds(string $date, int $seconds): array
+    protected function getStadiumIds(string $date): array
     {
-        return $this->getCrawler('stadium')->crawlStadiumId($date, $seconds);
+        return $this->getCrawler('stadium')->crawlStadiumId($date);
     }
 
     /**

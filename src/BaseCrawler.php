@@ -22,6 +22,11 @@ abstract class BaseCrawler
     protected $baseUrl = 'https://www.boatrace.jp';
 
     /**
+     * @var int
+     */
+    protected $seconds = 1;
+
+    /**
      * @param  \Symfony\Component\BrowserKit\HttpBrowser  $httpBrowser
      * @return void
      */

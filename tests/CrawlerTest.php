@@ -11,16 +11,11 @@ use PHPUnit\Framework\TestCase as PHPUnitTestCase;
 class CrawlerTest extends PHPUnitTestCase
 {
     /**
-     * @var int
-     */
-    protected $seconds = 1;
-
-    /**
      * @return void
      */
     public function testCrawlProgram(): void
     {
-        $response = Crawler::crawlProgram('2017-03-31', 24, 1, $this->seconds);
+        $response = Crawler::crawlProgram('2017-03-31', 24, 1);
         $this->assertSame('2017-03-31', $response->get('stadiums')->get(24)->get('races')->get(1)->get('date'));
         $this->assertSame(24, $response->get('stadiums')->get(24)->get('races')->get(1)->get('stadium_id'));
         $this->assertSame(1, $response->get('stadiums')->get(24)->get('races')->get(1)->get('race_number'));
