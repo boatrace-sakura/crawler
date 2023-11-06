@@ -27,13 +27,13 @@ var_dump(Crawler::crawlNotice('2017-03-31')); // 2017年03月31日, 直前情報
 var_dump(Crawler::crawlNotice('2017-03-31', 24)); // 2017年03月31日, 大村, 直前情報
 var_dump(Crawler::crawlNotice('2017-03-31', 24, 1)); // 2017年03月31日, 大村, 1R, 直前情報
 
-var_dump(Crawler::crawlOdds('2017-03-31')); // 2017年03月31日, オッズ
-var_dump(Crawler::crawlOdds('2017-03-31', 24)); // 2017年03月31日, 大村, オッズ
-var_dump(Crawler::crawlOdds('2017-03-31', 24, 1)); // 2017年03月31日, 大村, 1R, オッズ
-
 var_dump(Crawler::crawlResult('2017-03-31')); // 2017年03月31日, 結果
 var_dump(Crawler::crawlResult('2017-03-31', 24)); // 2017年03月31日, 大村, 結果
 var_dump(Crawler::crawlResult('2017-03-31', 24, 1)); // 2017年03月31日, 大村, 1R, 結果
+
+var_dump(Crawler::crawlOdds('2017-03-31')); // 2017年03月31日, オッズ
+var_dump(Crawler::crawlOdds('2017-03-31', 24)); // 2017年03月31日, 大村, オッズ
+var_dump(Crawler::crawlOdds('2017-03-31', 24, 1)); // 2017年03月31日, 大村, 1R, オッズ
 ```
 
 ## License
