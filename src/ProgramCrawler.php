@@ -42,7 +42,6 @@ class ProgramCrawler extends BaseCrawler implements CrawlerInterface
         $date = Converter::convertToDate($date);
         $stadiumId = Converter::convertToInt($stadiumId);
         $raceNumber = Converter::convertToInt($raceNumber);
-
         $boatraceDate = Carbon::parse($date)->format('Ymd');
 
         $crawlerFormat = '%s/owpc/pc/race/racelist?hd=%s&jcd=%02d&rno=%d';
@@ -50,10 +49,10 @@ class ProgramCrawler extends BaseCrawler implements CrawlerInterface
         $crawler = $this->httpBrowser->request('GET', $crawlerUrl);
         sleep($this->seconds);
 
-        $this->baseLevel = 0;
-
         $levelFormat = '%s/div[2]/div[3]/ul/li';
         $levelXPath = sprintf($levelFormat, $this->baseXPath);
+
+        $this->baseLevel = 0;
         if (! is_null($this->filterXPath($crawler, $levelXPath))) {
             $this->baseLevel = 1;
         }

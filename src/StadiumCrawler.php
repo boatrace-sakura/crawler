@@ -34,8 +34,12 @@ class StadiumCrawler extends BaseCrawler
         $crawler = $this->httpBrowser->request('GET', $crawlerUrl);
         sleep($this->seconds);
 
-        $crawler->filter('.table1')->eq(0)->filter('table tbody td.is-arrow1.is-fBold.is-fs15')->each(function ($element) use (&$response) {
-            $response[] = Converter::convertToStadiumId(str_replace('>', '', $element->filter('a')->filter('img')->attr('alt')));
+        $crawler = $crawler->filter('.table1')->eq(0);
+        $crawler = $crawler->filter('table tbody td.is-arrow1.is-fBold.is-fs15');
+        $crawler->each(function ($element) use (&$response) {
+            $response[] = Converter::convertToStadiumId(
+                str_replace('>', '', $element->filter('a')->filter('img')->attr('alt'))
+            );
         });
 
         return $response;
@@ -56,7 +60,9 @@ class StadiumCrawler extends BaseCrawler
         $crawler = $this->httpBrowser->request('GET', $crawlerUrl);
         sleep($this->seconds);
 
-        $crawler->filter('.table1')->eq(0)->filter('table tbody td.is-arrow1.is-fBold.is-fs15')->each(function ($element) use (&$response) {
+        $crawler = $crawler->filter('.table1')->eq(0);
+        $crawler = $crawler->filter('table tbody td.is-arrow1.is-fBold.is-fs15');
+        $crawler->each(function ($element) use (&$response) {
             $response[] = str_replace('>', '', $element->filter('a')->filter('img')->attr('alt'));
         });
 

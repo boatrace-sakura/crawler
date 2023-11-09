@@ -42,33 +42,37 @@ class OddsCrawler extends BaseCrawler implements CrawlerInterface
         $date = Converter::convertToDate($date);
         $stadiumId = Converter::convertToInt($stadiumId);
         $raceNumber = Converter::convertToInt($raceNumber);
-
         $boatraceDate = Carbon::parse($date)->format('Ymd');
 
-        $request1 = sprintf('%s/owpc/pc/race/oddstf?hd=%s&jcd=%02d&rno=%d', $this->baseUrl, $boatraceDate, $stadiumId, $raceNumber);
-        $crawler1 = $this->httpBrowser->request('GET', $request1);
+        $crawler1Format = '%s/owpc/pc/race/oddstf?hd=%s&jcd=%02d&rno=%d';
+        $crawler1Url = sprintf($crawler1Format, $this->baseUrl, $boatraceDate, $stadiumId, $raceNumber);
+        $crawler1 = $this->httpBrowser->request('GET', $crawler1Url);
         sleep($this->seconds);
 
-        $request2 = sprintf('%s/owpc/pc/race/odds2tf?hd=%s&jcd=%02d&rno=%d', $this->baseUrl, $boatraceDate, $stadiumId, $raceNumber);
-        $crawler2 = $this->httpBrowser->request('GET', $request2);
+        $crawler2Format = '%s/owpc/pc/race/odds2tf?hd=%s&jcd=%02d&rno=%d';
+        $crawler2Url = sprintf($crawler2Format, $this->baseUrl, $boatraceDate, $stadiumId, $raceNumber);
+        $crawler2 = $this->httpBrowser->request('GET', $crawler2Url);
         sleep($this->seconds);
 
-        $request3 = sprintf('%s/owpc/pc/race/oddsk?hd=%s&jcd=%02d&rno=%d', $this->baseUrl, $boatraceDate, $stadiumId, $raceNumber);
-        $crawler3 = $this->httpBrowser->request('GET', $request3);
+        $crawler3Format = '%s/owpc/pc/race/oddsk?hd=%s&jcd=%02d&rno=%d';
+        $crawler3Url = sprintf($crawler3Format, $this->baseUrl, $boatraceDate, $stadiumId, $raceNumber);
+        $crawler3 = $this->httpBrowser->request('GET', $crawler3Url);
         sleep($this->seconds);
 
-        $request4 = sprintf('%s/owpc/pc/race/odds3t?hd=%s&jcd=%02d&rno=%d', $this->baseUrl, $boatraceDate, $stadiumId, $raceNumber);
-        $crawler4 = $this->httpBrowser->request('GET', $request4);
+        $crawler4Format = '%s/owpc/pc/race/odds3t?hd=%s&jcd=%02d&rno=%d';
+        $crawler4Url = sprintf($crawler4Format, $this->baseUrl, $boatraceDate, $stadiumId, $raceNumber);
+        $crawler4 = $this->httpBrowser->request('GET', $crawler4Url);
         sleep($this->seconds);
 
-        $request5 = sprintf('%s/owpc/pc/race/odds3f?hd=%s&jcd=%02d&rno=%d', $this->baseUrl, $boatraceDate, $stadiumId, $raceNumber);
-        $crawler5 = $this->httpBrowser->request('GET', $request5);
+        $crawler5Format = '%s/owpc/pc/race/odds3f?hd=%s&jcd=%02d&rno=%d';
+        $crawler5Url = sprintf($crawler5Format, $this->baseUrl, $boatraceDate, $stadiumId, $raceNumber);
+        $crawler5 = $this->httpBrowser->request('GET', $crawler5Url);
         sleep($this->seconds);
-
-        $this->baseLevel = 0;
 
         $levelFormat = '%s/div[2]/div[3]/ul/li';
         $levelXPath = sprintf($levelFormat, $this->baseXPath);
+
+        $this->baseLevel = 0;
         if (! is_null($this->filterXPath($crawler1, $levelXPath))) {
             $this->baseLevel = 1;
         }
