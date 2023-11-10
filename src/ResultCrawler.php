@@ -81,13 +81,13 @@ class ResultCrawler extends BaseCrawler implements CrawlerInterface
         $waterTemperature = $this->filterXPath($crawler, $waterTemperatureXPath);
         $techniqueName = $this->filterXPath($crawler, $techniqueNameXPath);
 
-        $wind = is_null($wind) ? null : Converter::convertToWind($wind);
-        $windDirection = is_null($windDirection) ? null : Converter::convertToWindDirection($windDirection);
-        $wave = is_null($wave) ? null : Converter::convertToWave($wave);
-        $weatherId = is_null($weatherName) ? null : Converter::convertToWeatherId($weatherName);
-        $temperature = is_null($temperature) ? null : Converter::convertToTemperature($temperature);
-        $waterTemperature = is_null($waterTemperature) ? null : Converter::convertToTemperature($waterTemperature);
-        $techniqueId = is_null($techniqueName) ? null : Converter::convertToTechniqueId($techniqueName);
+        $wind = Converter::convertToWind($wind);
+        $windDirection = Converter::convertToWindDirection($windDirection);
+        $wave = Converter::convertToWave($wave);
+        $weatherId = Converter::convertToWeatherId($weatherName);
+        $temperature = Converter::convertToTemperature($temperature);
+        $waterTemperature = Converter::convertToTemperature($waterTemperature);
+        $techniqueId = Converter::convertToTechniqueId($techniqueName);
 
         $response['stadiums'][$stadiumId]['races'][$raceNumber]['date'] = $date;
         $response['stadiums'][$stadiumId]['races'][$raceNumber]['stadium_id'] = $stadiumId;
@@ -132,10 +132,10 @@ class ResultCrawler extends BaseCrawler implements CrawlerInterface
             $racerNumber = $this->filterXPath($crawler, $racerNumberXPath);
             $racerName = $this->filterXPath($crawler, $racerNameXPath);
 
-            $place = is_null($place) ? null : Converter::convertToPlaceId($place);
-            $bracket = is_null($bracket) ? null : Converter::convertToInt($bracket);
-            $racerNumber = is_null($racerNumber) ? null : Converter::convertToInt($racerNumber);
-            $racerName = is_null($racerName) ? null : Converter::convertToName($racerName);
+            $place = Converter::convertToPlaceId($place);
+            $bracket = Converter::convertToInt($bracket);
+            $racerNumber = Converter::convertToInt($racerNumber);
+            $racerName = Converter::convertToName($racerName);
 
             $response['stadiums'][$stadiumId]['races'][$raceNumber]['places'][$index]['place'] = $place;
             $response['stadiums'][$stadiumId]['races'][$raceNumber]['places'][$index]['bracket'] = $bracket;
@@ -166,8 +166,8 @@ class ResultCrawler extends BaseCrawler implements CrawlerInterface
             $bracket = $this->filterXPath($crawler, $bracketXPath);
             $startTiming = $this->filterXPath($crawler, $startTimingXPath);
 
-            $bracket = is_null($bracket) ? null : Converter::convertToInt($bracket);
-            $startTiming = is_null($startTiming) ? null : Converter::convertToStartTiming($startTiming);
+            $bracket = Converter::convertToInt($bracket);
+            $startTiming = Converter::convertToStartTiming($startTiming);
 
             $response['stadiums'][$stadiumId]['races'][$raceNumber]['courses'][$course]['course'] = $course;
             $response['stadiums'][$stadiumId]['races'][$raceNumber]['courses'][$course]['bracket'] = $bracket;

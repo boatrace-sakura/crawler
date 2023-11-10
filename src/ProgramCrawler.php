@@ -124,7 +124,7 @@ class ProgramCrawler extends BaseCrawler implements CrawlerInterface
             $motorNumberMotor23Percentages = $this->filterXPath($crawler, $motorNumberMotor23PercentagesXPath);
             $boatNumberBoat23Percentages = $this->filterXPath($crawler, $boatNumberMotor23PercentagesXPath);
 
-            $name = is_null($name) ? null : Converter::convertToName($name);
+            $name = Converter::convertToName($name);
 
             [$number, $classId] = $this->explodeNumberClassName($numberClassName);
             [$branchId, $birthplaceId, $age, $weight] = $this->explodeBranchNameBirthplaceNameAgeWeight($branchNameBirthplaceNameAgeWeight);

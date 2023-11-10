@@ -78,12 +78,12 @@ class NoticeCrawler extends BaseCrawler implements CrawlerInterface
         $temperature = $this->filterXPath($crawler, $temperatureXPath);
         $waterTemperature = $this->filterXPath($crawler, $waterTemperatureXPath);
 
-        $wind = is_null($wind) ? null : Converter::convertToWind($wind);
-        $windDirection = is_null($windDirection) ? null : Converter::convertToWindDirection($windDirection);
-        $wave = is_null($wave) ? null : Converter::convertToWave($wave);
-        $weatherId = is_null($weatherName) ? null : Converter::convertToWeatherId($weatherName);
-        $temperature = is_null($temperature) ? null : Converter::convertToTemperature($temperature);
-        $waterTemperature = is_null($waterTemperature) ? null : Converter::convertToTemperature($waterTemperature);
+        $wind = Converter::convertToWind($wind);
+        $windDirection = Converter::convertToWindDirection($windDirection);
+        $wave = Converter::convertToWave($wave);
+        $weatherId = Converter::convertToWeatherId($weatherName);
+        $temperature = Converter::convertToTemperature($temperature);
+        $waterTemperature = Converter::convertToTemperature($waterTemperature);
 
         $response['stadiums'][$stadiumId]['races'][$raceNumber]['date'] = $date;
         $response['stadiums'][$stadiumId]['races'][$raceNumber]['stadium_id'] = $stadiumId;
@@ -130,11 +130,11 @@ class NoticeCrawler extends BaseCrawler implements CrawlerInterface
             $exhibitionTime = $this->filterXPath($crawler, $exhibitionTimeXPath);
             $tiltAdjustment = $this->filterXPath($crawler, $tiltAdjustmentXPath);
 
-            $bracket = is_null($bracket) ? null : Converter::convertToInt($bracket);
-            $weight = is_null($weight) ? null : Converter::convertToFloat($weight);
-            $weightAdjustment = is_null($weightAdjustment) ? null : Converter::convertToFloat($weightAdjustment);
-            $exhibitionTime = is_null($exhibitionTime) ? null : Converter::convertToFloat($exhibitionTime);
-            $tiltAdjustment = is_null($tiltAdjustment) ? null : Converter::convertToFloat($tiltAdjustment);
+            $bracket = Converter::convertToInt($bracket);
+            $weight = Converter::convertToFloat($weight);
+            $weightAdjustment = Converter::convertToFloat($weightAdjustment);
+            $exhibitionTime = Converter::convertToFloat($exhibitionTime);
+            $tiltAdjustment = Converter::convertToFloat($tiltAdjustment);
 
             $response['stadiums'][$stadiumId]['races'][$raceNumber]['racers'][$index]['bracket'] = $bracket;
             $response['stadiums'][$stadiumId]['races'][$raceNumber]['racers'][$index]['weight'] = $weight;
@@ -166,8 +166,8 @@ class NoticeCrawler extends BaseCrawler implements CrawlerInterface
             $bracket = $this->filterXPath($crawler, $bracketXPath);
             $startTiming = $this->filterXPath($crawler, $startTimingXPath);
 
-            $bracket = is_null($bracket) ? null : Converter::convertToInt($bracket);
-            $startTiming = is_null($startTiming) ? null : Converter::convertToStartTiming($startTiming);
+            $bracket = Converter::convertToInt($bracket);
+            $startTiming = Converter::convertToStartTiming($startTiming);
 
             $response['stadiums'][$stadiumId]['races'][$raceNumber]['courses'][$course]['course'] = $course;
             $response['stadiums'][$stadiumId]['races'][$raceNumber]['courses'][$course]['bracket'] = $bracket;
