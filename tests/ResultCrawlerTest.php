@@ -82,6 +82,7 @@ class ResultCrawlerTest extends PHPUnitTestCase
         $this->assertSame(0.31, $response['stadiums'][24]['races'][1]['courses'][4]['start_timing']);
         $this->assertSame(0.23, $response['stadiums'][24]['races'][1]['courses'][5]['start_timing']);
         $this->assertSame(0.24, $response['stadiums'][24]['races'][1]['courses'][6]['start_timing']);
+        $this->assertSame([460], $response['stadiums'][24]['races'][1]['trifecta_oddses']);
     }
 
     /**
@@ -142,5 +143,6 @@ class ResultCrawlerTest extends PHPUnitTestCase
         $this->assertNull($response['stadiums'][2]['races'][1]['courses'][4]['start_timing']);
         $this->assertNull($response['stadiums'][2]['races'][1]['courses'][5]['start_timing']);
         $this->assertNull($response['stadiums'][2]['races'][1]['courses'][6]['start_timing']);
+        $this->assertSame([], $response['stadiums'][2]['races'][1]['trifecta_oddses']);
     }
 }
