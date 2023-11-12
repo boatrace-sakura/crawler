@@ -102,6 +102,7 @@ class ResultCrawler extends BaseCrawler implements CrawlerInterface
 
         $response = $this->crawlPlaces($crawler, $response, $date, $stadiumId, $raceNumber);
         $response = $this->crawlCourses($crawler, $response, $date, $stadiumId, $raceNumber);
+        $response = $this->crawlTrifectaOddses($crawler, $response, $date, $stadiumId, $raceNumber);
 
         return $response;
     }
@@ -172,6 +173,39 @@ class ResultCrawler extends BaseCrawler implements CrawlerInterface
             $response['stadiums'][$stadiumId]['races'][$raceNumber]['courses'][$course]['course'] = $course;
             $response['stadiums'][$stadiumId]['races'][$raceNumber]['courses'][$course]['bracket'] = $bracket;
             $response['stadiums'][$stadiumId]['races'][$raceNumber]['courses'][$course]['start_timing'] = $startTiming;
+        }
+
+        return $response;
+    }
+
+    /**
+     * @param  \Symfony\Component\DomCrawler\Crawler  $crawler
+     * @param  array                                  $response
+     * @param  string                                 $date
+     * @param  int                                    $stadiumId
+     * @param  int                                    $raceNumber
+     * @return array
+     */
+    protected function crawlTrifectaOddses(Crawler $crawler, array $response, string $date, int $stadiumId, int $raceNumber): array
+    {
+        $trLevel = 1;
+        $response['stadiums'][$stadiumId]['races'][$raceNumber]['trifecta_oddses'] = [];
+        $trifectaFormat = '%s/div[2]/div[%s]/div[1]/div/table/tbody[1]/tr[%s]/td[%s]/span';
+
+        while (true) {
+            $tdLevel = $trLevel === 1 ? 3 : 2;
+            $trifectaXPath = sprintf($trifectaFormat, $this->baseXPath, $this->baseLevel + 6, $trLevel, $tdLevel);
+            $trifecta = $this->filterXPath($crawler, $trifectaXPath);
+
+            if (! str_starts_with($trifecta, '¥')) {
+                break;
+            }
+
+            $trifecta = str_replace('¥', '', $trifecta);
+            $trifecta = str_replace(',', '', $trifecta);
+
+            $trLevel += 1;
+            $response['stadiums'][$stadiumId]['races'][$raceNumber]['trifecta_oddses'][] = (int) $trifecta;
         }
 
         return $response;
