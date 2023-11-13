@@ -107,6 +107,7 @@ class ResultCrawler extends BaseCrawler implements CrawlerInterface
         $response = $this->crawlExactaOddses($crawler, $response, $date, $stadiumId, $raceNumber);
         $response = $this->crawlQuinellaOddses($crawler, $response, $date, $stadiumId, $raceNumber);
         $response = $this->crawlQuinellaPlaceOddses($crawler, $response, $date, $stadiumId, $raceNumber);
+        $response = $this->crawlWinOddses($crawler, $response, $date, $stadiumId, $raceNumber);
 
         return $response;
     }
@@ -342,6 +343,39 @@ class ResultCrawler extends BaseCrawler implements CrawlerInterface
 
             $trLevel += 1;
             $response['stadiums'][$stadiumId]['races'][$raceNumber]['quinella_place_oddses'][] = (int) $trifecta;
+        }
+
+        return $response;
+    }
+
+    /**
+     * @param  \Symfony\Component\DomCrawler\Crawler  $crawler
+     * @param  array                                  $response
+     * @param  string                                 $date
+     * @param  int                                    $stadiumId
+     * @param  int                                    $raceNumber
+     * @return array
+     */
+    protected function crawlWinOddses(Crawler $crawler, array $response, string $date, int $stadiumId, int $raceNumber): array
+    {
+        $trLevel = 1;
+        $response['stadiums'][$stadiumId]['races'][$raceNumber]['win_oddses'] = [];
+        $trifectaFormat = '%s/div[2]/div[%s]/div[1]/div/table/tbody[6]/tr[%s]/td[%s]/span';
+
+        while (true) {
+            $tdLevel = $trLevel === 1 ? 3 : 2;
+            $trifectaXPath = sprintf($trifectaFormat, $this->baseXPath, $this->baseLevel + 6, $trLevel, $tdLevel);
+            $trifecta = $this->filterXPath($crawler, $trifectaXPath);
+
+            if (! str_starts_with($trifecta, '¥')) {
+                break;
+            }
+
+            $trifecta = str_replace('¥', '', $trifecta);
+            $trifecta = str_replace(',', '', $trifecta);
+
+            $trLevel += 1;
+            $response['stadiums'][$stadiumId]['races'][$raceNumber]['win_oddses'][] = (int) $trifecta;
         }
 
         return $response;
