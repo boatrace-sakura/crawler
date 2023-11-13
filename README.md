@@ -7,8 +7,8 @@
 [![License](https://poser.pugx.org/boatrace-sakura/crawler/license)](https://packagist.org/packages/boatrace-sakura/crawler)
 
 ## Installation
-```
-$ composer require boatrace-sakura/crawler
+```bash
+composer require boatrace-sakura/crawler
 ```
 
 ## Usage
