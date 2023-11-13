@@ -102,13 +102,13 @@ class ResultCrawler extends BaseCrawler implements CrawlerInterface
 
         $response = $this->crawlPlaces($crawler, $response, $date, $stadiumId, $raceNumber);
         $response = $this->crawlCourses($crawler, $response, $date, $stadiumId, $raceNumber);
-        $response = $this->crawlTrifectaOddses($crawler, $response, $date, $stadiumId, $raceNumber);
-        $response = $this->crawlTrioOddses($crawler, $response, $date, $stadiumId, $raceNumber);
-        $response = $this->crawlExactaOddses($crawler, $response, $date, $stadiumId, $raceNumber);
-        $response = $this->crawlQuinellaOddses($crawler, $response, $date, $stadiumId, $raceNumber);
-        $response = $this->crawlQuinellaPlaceOddses($crawler, $response, $date, $stadiumId, $raceNumber);
-        $response = $this->crawlWinOddses($crawler, $response, $date, $stadiumId, $raceNumber);
-        $response = $this->crawlPlaceOddses($crawler, $response, $date, $stadiumId, $raceNumber);
+        $response = $this->crawlOddses($crawler, $response, $date, $stadiumId, $raceNumber, 1);
+        $response = $this->crawlOddses($crawler, $response, $date, $stadiumId, $raceNumber, 2);
+        $response = $this->crawlOddses($crawler, $response, $date, $stadiumId, $raceNumber, 3);
+        $response = $this->crawlOddses($crawler, $response, $date, $stadiumId, $raceNumber, 4);
+        $response = $this->crawlOddses($crawler, $response, $date, $stadiumId, $raceNumber, 5);
+        $response = $this->crawlOddses($crawler, $response, $date, $stadiumId, $raceNumber, 6);
+        $response = $this->crawlOddses($crawler, $response, $date, $stadiumId, $raceNumber, 7);
 
         return $response;
     }
@@ -190,17 +190,28 @@ class ResultCrawler extends BaseCrawler implements CrawlerInterface
      * @param  string                                 $date
      * @param  int                                    $stadiumId
      * @param  int                                    $raceNumber
+     * @param  int                                    $purchaseType
      * @return array
      */
-    protected function crawlTrifectaOddses(Crawler $crawler, array $response, string $date, int $stadiumId, int $raceNumber): array
+    protected function crawlOddses(Crawler $crawler, array $response, string $date, int $stadiumId, int $raceNumber, int $purchaseType): array
     {
+        $purchaseTypeName = [
+            'trifecta',
+            'trio',
+            'exacta',
+            'quinella',
+            'quinella_place',
+            'win',
+            'place',
+        ][$purchaseType - 1];
+
         $trLevel = 1;
-        $response['stadiums'][$stadiumId]['races'][$raceNumber]['trifecta_oddses'] = [];
-        $trifectaFormat = '%s/div[2]/div[%s]/div[1]/div/table/tbody[1]/tr[%s]/td[%s]/span';
+        $response['stadiums'][$stadiumId]['races'][$raceNumber][$purchaseTypeName . '_oddses'] = [];
+        $trifectaFormat = '%s/div[2]/div[%s]/div[1]/div/table/tbody[%s]/tr[%s]/td[%s]/span';
 
         while (true) {
             $tdLevel = $trLevel === 1 ? 3 : 2;
-            $trifectaXPath = sprintf($trifectaFormat, $this->baseXPath, $this->baseLevel + 6, $trLevel, $tdLevel);
+            $trifectaXPath = sprintf($trifectaFormat, $this->baseXPath, $this->baseLevel + 6, $purchaseType, $trLevel, $tdLevel);
             $trifecta = $this->filterXPath($crawler, $trifectaXPath);
 
             if (! str_starts_with($trifecta, '¥')) {
@@ -211,205 +222,7 @@ class ResultCrawler extends BaseCrawler implements CrawlerInterface
             $trifecta = str_replace(',', '', $trifecta);
 
             $trLevel += 1;
-            $response['stadiums'][$stadiumId]['races'][$raceNumber]['trifecta_oddses'][] = (int) $trifecta;
-        }
-
-        return $response;
-    }
-
-    /**
-     * @param  \Symfony\Component\DomCrawler\Crawler  $crawler
-     * @param  array                                  $response
-     * @param  string                                 $date
-     * @param  int                                    $stadiumId
-     * @param  int                                    $raceNumber
-     * @return array
-     */
-    protected function crawlTrioOddses(Crawler $crawler, array $response, string $date, int $stadiumId, int $raceNumber): array
-    {
-        $trLevel = 1;
-        $response['stadiums'][$stadiumId]['races'][$raceNumber]['trio_oddses'] = [];
-        $trifectaFormat = '%s/div[2]/div[%s]/div[1]/div/table/tbody[2]/tr[%s]/td[%s]/span';
-
-        while (true) {
-            $tdLevel = $trLevel === 1 ? 3 : 2;
-            $trifectaXPath = sprintf($trifectaFormat, $this->baseXPath, $this->baseLevel + 6, $trLevel, $tdLevel);
-            $trifecta = $this->filterXPath($crawler, $trifectaXPath);
-
-            if (! str_starts_with($trifecta, '¥')) {
-                break;
-            }
-
-            $trifecta = str_replace('¥', '', $trifecta);
-            $trifecta = str_replace(',', '', $trifecta);
-
-            $trLevel += 1;
-            $response['stadiums'][$stadiumId]['races'][$raceNumber]['trio_oddses'][] = (int) $trifecta;
-        }
-
-        return $response;
-    }
-
-    /**
-     * @param  \Symfony\Component\DomCrawler\Crawler  $crawler
-     * @param  array                                  $response
-     * @param  string                                 $date
-     * @param  int                                    $stadiumId
-     * @param  int                                    $raceNumber
-     * @return array
-     */
-    protected function crawlExactaOddses(Crawler $crawler, array $response, string $date, int $stadiumId, int $raceNumber): array
-    {
-        $trLevel = 1;
-        $response['stadiums'][$stadiumId]['races'][$raceNumber]['exacta_oddses'] = [];
-        $trifectaFormat = '%s/div[2]/div[%s]/div[1]/div/table/tbody[3]/tr[%s]/td[%s]/span';
-
-        while (true) {
-            $tdLevel = $trLevel === 1 ? 3 : 2;
-            $trifectaXPath = sprintf($trifectaFormat, $this->baseXPath, $this->baseLevel + 6, $trLevel, $tdLevel);
-            $trifecta = $this->filterXPath($crawler, $trifectaXPath);
-
-            if (! str_starts_with($trifecta, '¥')) {
-                break;
-            }
-
-            $trifecta = str_replace('¥', '', $trifecta);
-            $trifecta = str_replace(',', '', $trifecta);
-
-            $trLevel += 1;
-            $response['stadiums'][$stadiumId]['races'][$raceNumber]['exacta_oddses'][] = (int) $trifecta;
-        }
-
-        return $response;
-    }
-
-    /**
-     * @param  \Symfony\Component\DomCrawler\Crawler  $crawler
-     * @param  array                                  $response
-     * @param  string                                 $date
-     * @param  int                                    $stadiumId
-     * @param  int                                    $raceNumber
-     * @return array
-     */
-    protected function crawlQuinellaOddses(Crawler $crawler, array $response, string $date, int $stadiumId, int $raceNumber): array
-    {
-        $trLevel = 1;
-        $response['stadiums'][$stadiumId]['races'][$raceNumber]['quinella_oddses'] = [];
-        $trifectaFormat = '%s/div[2]/div[%s]/div[1]/div/table/tbody[4]/tr[%s]/td[%s]/span';
-
-        while (true) {
-            $tdLevel = $trLevel === 1 ? 3 : 2;
-            $trifectaXPath = sprintf($trifectaFormat, $this->baseXPath, $this->baseLevel + 6, $trLevel, $tdLevel);
-            $trifecta = $this->filterXPath($crawler, $trifectaXPath);
-
-            if (! str_starts_with($trifecta, '¥')) {
-                break;
-            }
-
-            $trifecta = str_replace('¥', '', $trifecta);
-            $trifecta = str_replace(',', '', $trifecta);
-
-            $trLevel += 1;
-            $response['stadiums'][$stadiumId]['races'][$raceNumber]['quinella_oddses'][] = (int) $trifecta;
-        }
-
-        return $response;
-    }
-
-    /**
-     * @param  \Symfony\Component\DomCrawler\Crawler  $crawler
-     * @param  array                                  $response
-     * @param  string                                 $date
-     * @param  int                                    $stadiumId
-     * @param  int                                    $raceNumber
-     * @return array
-     */
-    protected function crawlQuinellaPlaceOddses(Crawler $crawler, array $response, string $date, int $stadiumId, int $raceNumber): array
-    {
-        $trLevel = 1;
-        $response['stadiums'][$stadiumId]['races'][$raceNumber]['quinella_place_oddses'] = [];
-        $trifectaFormat = '%s/div[2]/div[%s]/div[1]/div/table/tbody[5]/tr[%s]/td[%s]/span';
-
-        while (true) {
-            $tdLevel = $trLevel === 1 ? 3 : 2;
-            $trifectaXPath = sprintf($trifectaFormat, $this->baseXPath, $this->baseLevel + 6, $trLevel, $tdLevel);
-            $trifecta = $this->filterXPath($crawler, $trifectaXPath);
-
-            if (! str_starts_with($trifecta, '¥')) {
-                break;
-            }
-
-            $trifecta = str_replace('¥', '', $trifecta);
-            $trifecta = str_replace(',', '', $trifecta);
-
-            $trLevel += 1;
-            $response['stadiums'][$stadiumId]['races'][$raceNumber]['quinella_place_oddses'][] = (int) $trifecta;
-        }
-
-        return $response;
-    }
-
-    /**
-     * @param  \Symfony\Component\DomCrawler\Crawler  $crawler
-     * @param  array                                  $response
-     * @param  string                                 $date
-     * @param  int                                    $stadiumId
-     * @param  int                                    $raceNumber
-     * @return array
-     */
-    protected function crawlWinOddses(Crawler $crawler, array $response, string $date, int $stadiumId, int $raceNumber): array
-    {
-        $trLevel = 1;
-        $response['stadiums'][$stadiumId]['races'][$raceNumber]['win_oddses'] = [];
-        $trifectaFormat = '%s/div[2]/div[%s]/div[1]/div/table/tbody[6]/tr[%s]/td[%s]/span';
-
-        while (true) {
-            $tdLevel = $trLevel === 1 ? 3 : 2;
-            $trifectaXPath = sprintf($trifectaFormat, $this->baseXPath, $this->baseLevel + 6, $trLevel, $tdLevel);
-            $trifecta = $this->filterXPath($crawler, $trifectaXPath);
-
-            if (! str_starts_with($trifecta, '¥')) {
-                break;
-            }
-
-            $trifecta = str_replace('¥', '', $trifecta);
-            $trifecta = str_replace(',', '', $trifecta);
-
-            $trLevel += 1;
-            $response['stadiums'][$stadiumId]['races'][$raceNumber]['win_oddses'][] = (int) $trifecta;
-        }
-
-        return $response;
-    }
-
-    /**
-     * @param  \Symfony\Component\DomCrawler\Crawler  $crawler
-     * @param  array                                  $response
-     * @param  string                                 $date
-     * @param  int                                    $stadiumId
-     * @param  int                                    $raceNumber
-     * @return array
-     */
-    protected function crawlPlaceOddses(Crawler $crawler, array $response, string $date, int $stadiumId, int $raceNumber): array
-    {
-        $trLevel = 1;
-        $response['stadiums'][$stadiumId]['races'][$raceNumber]['place_oddses'] = [];
-        $trifectaFormat = '%s/div[2]/div[%s]/div[1]/div/table/tbody[7]/tr[%s]/td[%s]/span';
-
-        while (true) {
-            $tdLevel = $trLevel === 1 ? 3 : 2;
-            $trifectaXPath = sprintf($trifectaFormat, $this->baseXPath, $this->baseLevel + 6, $trLevel, $tdLevel);
-            $trifecta = $this->filterXPath($crawler, $trifectaXPath);
-
-            if (! str_starts_with($trifecta, '¥')) {
-                break;
-            }
-
-            $trifecta = str_replace('¥', '', $trifecta);
-            $trifecta = str_replace(',', '', $trifecta);
-
-            $trLevel += 1;
-            $response['stadiums'][$stadiumId]['races'][$raceNumber]['place_oddses'][] = (int) $trifecta;
+            $response['stadiums'][$stadiumId]['races'][$raceNumber][$purchaseTypeName . '_oddses'][] = (int) $trifecta;
         }
 
         return $response;
