@@ -82,13 +82,13 @@ class ResultCrawlerTest extends PHPUnitTestCase
         $this->assertSame(0.31, $response['stadiums'][24]['races'][1]['courses'][4]['start_timing']);
         $this->assertSame(0.23, $response['stadiums'][24]['races'][1]['courses'][5]['start_timing']);
         $this->assertSame(0.24, $response['stadiums'][24]['races'][1]['courses'][6]['start_timing']);
-        $this->assertSame([460], $response['stadiums'][24]['races'][1]['trifecta_oddses']);
-        $this->assertSame([320], $response['stadiums'][24]['races'][1]['trio_oddses']);
-        $this->assertSame([180], $response['stadiums'][24]['races'][1]['exacta_oddses']);
-        $this->assertSame([150], $response['stadiums'][24]['races'][1]['quinella_oddses']);
-        $this->assertSame([110, 240, 280], $response['stadiums'][24]['races'][1]['quinella_place_oddses']);
-        $this->assertSame([100], $response['stadiums'][24]['races'][1]['win_oddses']);
-        $this->assertSame([100, 150], $response['stadiums'][24]['races'][1]['place_oddses']);
+        $this->assertSame([460], $response['stadiums'][24]['races'][1]['trifecta_refunds']);
+        $this->assertSame([320], $response['stadiums'][24]['races'][1]['trio_refunds']);
+        $this->assertSame([180], $response['stadiums'][24]['races'][1]['exacta_refunds']);
+        $this->assertSame([150], $response['stadiums'][24]['races'][1]['quinella_refunds']);
+        $this->assertSame([110, 240, 280], $response['stadiums'][24]['races'][1]['quinella_place_refunds']);
+        $this->assertSame([100], $response['stadiums'][24]['races'][1]['win_refunds']);
+        $this->assertSame([100, 150], $response['stadiums'][24]['races'][1]['place_refunds']);
     }
 
     /**
@@ -149,12 +149,12 @@ class ResultCrawlerTest extends PHPUnitTestCase
         $this->assertNull($response['stadiums'][2]['races'][1]['courses'][4]['start_timing']);
         $this->assertNull($response['stadiums'][2]['races'][1]['courses'][5]['start_timing']);
         $this->assertNull($response['stadiums'][2]['races'][1]['courses'][6]['start_timing']);
-        $this->assertSame([], $response['stadiums'][2]['races'][1]['trifecta_oddses']);
-        $this->assertSame([], $response['stadiums'][2]['races'][1]['trio_oddses']);
-        $this->assertSame([], $response['stadiums'][2]['races'][1]['exacta_oddses']);
-        $this->assertSame([], $response['stadiums'][2]['races'][1]['quinella_oddses']);
-        $this->assertSame([], $response['stadiums'][2]['races'][1]['quinella_place_oddses']);
-        $this->assertSame([], $response['stadiums'][2]['races'][1]['win_oddses']);
-        $this->assertSame([], $response['stadiums'][2]['races'][1]['place_oddses']);
+        $this->assertSame([], $response['stadiums'][2]['races'][1]['trifecta_refunds']);
+        $this->assertSame([], $response['stadiums'][2]['races'][1]['trio_refunds']);
+        $this->assertSame([], $response['stadiums'][2]['races'][1]['exacta_refunds']);
+        $this->assertSame([], $response['stadiums'][2]['races'][1]['quinella_refunds']);
+        $this->assertSame([], $response['stadiums'][2]['races'][1]['quinella_place_refunds']);
+        $this->assertSame([], $response['stadiums'][2]['races'][1]['win_refunds']);
+        $this->assertSame([], $response['stadiums'][2]['races'][1]['place_refunds']);
     }
 }

@@ -206,7 +206,7 @@ class ResultCrawler extends BaseCrawler implements CrawlerInterface
         ][$purchaseType - 1];
 
         $trLevel = 1;
-        $response['stadiums'][$stadiumId]['races'][$raceNumber][$purchaseTypeName . '_oddses'] = [];
+        $response['stadiums'][$stadiumId]['races'][$raceNumber][$purchaseTypeName . '_refunds'] = [];
         $trifectaFormat = '%s/div[2]/div[%s]/div[1]/div/table/tbody[%s]/tr[%s]/td[%s]/span';
 
         while (true) {
@@ -222,7 +222,7 @@ class ResultCrawler extends BaseCrawler implements CrawlerInterface
             $trifecta = str_replace(',', '', $trifecta);
 
             $trLevel += 1;
-            $response['stadiums'][$stadiumId]['races'][$raceNumber][$purchaseTypeName . '_oddses'][] = (int) $trifecta;
+            $response['stadiums'][$stadiumId]['races'][$raceNumber][$purchaseTypeName . '_refunds'][] = (int) $trifecta;
         }
 
         return $response;
