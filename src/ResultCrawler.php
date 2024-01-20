@@ -102,13 +102,13 @@ class ResultCrawler extends BaseCrawler implements CrawlerInterface
 
         $response = $this->crawlPlaces($crawler, $response, $date, $stadiumId, $raceNumber);
         $response = $this->crawlCourses($crawler, $response, $date, $stadiumId, $raceNumber);
-        $response = $this->crawlOddses($crawler, $response, $date, $stadiumId, $raceNumber, 1);
-        $response = $this->crawlOddses($crawler, $response, $date, $stadiumId, $raceNumber, 2);
-        $response = $this->crawlOddses($crawler, $response, $date, $stadiumId, $raceNumber, 3);
-        $response = $this->crawlOddses($crawler, $response, $date, $stadiumId, $raceNumber, 4);
-        $response = $this->crawlOddses($crawler, $response, $date, $stadiumId, $raceNumber, 5);
-        $response = $this->crawlOddses($crawler, $response, $date, $stadiumId, $raceNumber, 6);
-        $response = $this->crawlOddses($crawler, $response, $date, $stadiumId, $raceNumber, 7);
+        $response = $this->crawlRefunds($crawler, $response, $date, $stadiumId, $raceNumber, 1);
+        $response = $this->crawlRefunds($crawler, $response, $date, $stadiumId, $raceNumber, 2);
+        $response = $this->crawlRefunds($crawler, $response, $date, $stadiumId, $raceNumber, 3);
+        $response = $this->crawlRefunds($crawler, $response, $date, $stadiumId, $raceNumber, 4);
+        $response = $this->crawlRefunds($crawler, $response, $date, $stadiumId, $raceNumber, 5);
+        $response = $this->crawlRefunds($crawler, $response, $date, $stadiumId, $raceNumber, 6);
+        $response = $this->crawlRefunds($crawler, $response, $date, $stadiumId, $raceNumber, 7);
 
         return $response;
     }
@@ -193,7 +193,7 @@ class ResultCrawler extends BaseCrawler implements CrawlerInterface
      * @param  int                                    $purchaseType
      * @return array
      */
-    protected function crawlOddses(Crawler $crawler, array $response, string $date, int $stadiumId, int $raceNumber, int $purchaseType): array
+    protected function crawlRefunds(Crawler $crawler, array $response, string $date, int $stadiumId, int $raceNumber, int $purchaseType): array
     {
         $purchaseTypeName = [
             'trifecta',
@@ -207,22 +207,22 @@ class ResultCrawler extends BaseCrawler implements CrawlerInterface
 
         $trLevel = 1;
         $response['stadiums'][$stadiumId]['races'][$raceNumber][$purchaseTypeName . '_refunds'] = [];
-        $trifectaFormat = '%s/div[2]/div[%s]/div[1]/div/table/tbody[%s]/tr[%s]/td[%s]/span';
+        $refundFormat = '%s/div[2]/div[%s]/div[1]/div/table/tbody[%s]/tr[%s]/td[%s]/span';
 
         while (true) {
             $tdLevel = $trLevel === 1 ? 3 : 2;
-            $trifectaXPath = sprintf($trifectaFormat, $this->baseXPath, $this->baseLevel + 6, $purchaseType, $trLevel, $tdLevel);
-            $trifecta = $this->filterXPath($crawler, $trifectaXPath);
+            $refundXPath = sprintf($refundFormat, $this->baseXPath, $this->baseLevel + 6, $purchaseType, $trLevel, $tdLevel);
+            $refund = $this->filterXPath($crawler, $refundXPath);
 
-            if (! str_starts_with($trifecta, '¥')) {
+            if (! str_starts_with($refund, '¥')) {
                 break;
             }
 
-            $trifecta = str_replace('¥', '', $trifecta);
-            $trifecta = str_replace(',', '', $trifecta);
+            $refund = str_replace('¥', '', $refund);
+            $refund = str_replace(',', '', $refund);
 
             $trLevel += 1;
-            $response['stadiums'][$stadiumId]['races'][$raceNumber][$purchaseTypeName . '_refunds'][] = (int) $trifecta;
+            $response['stadiums'][$stadiumId]['races'][$raceNumber][$purchaseTypeName . '_refunds'][] = (int) $refund;
         }
 
         return $response;
