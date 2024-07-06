@@ -100,39 +100,39 @@ class ProgramCrawler extends BaseCrawler implements CrawlerInterface
         $numberClassNameFormat = '%s/div[2]/div[%s]/table/tbody[%s]/tr[1]/td[3]/div[1]';
         $branchNameBirthplaceNameAgeWeightFormat = '%s/div[2]/div[%s]/table/tbody[%s]/tr[1]/td[3]/div[3]';
         $flyingCountLateCountStartTimingFormat = '%s/div[2]/div[%s]/table/tbody[%s]/tr[1]/td[4]';
-        $national123PercentagesFormat = '%s/div[2]/div[%s]/table/tbody[%s]/tr[1]/td[5]';
-        $local123PercentagesFormat = '%s/div[2]/div[%s]/table/tbody[%s]/tr[1]/td[6]';
-        $motorNumberMotor23PercentagesFormat = '%s/div[2]/div[%s]/table/tbody[%s]/tr[1]/td[7]';
-        $boatNumberBoat23PercentagesFormat = '%s/div[2]/div[%s]/table/tbody[%s]/tr[1]/td[8]';
+        $national123PercentFormat = '%s/div[2]/div[%s]/table/tbody[%s]/tr[1]/td[5]';
+        $local123PercentFormat = '%s/div[2]/div[%s]/table/tbody[%s]/tr[1]/td[6]';
+        $motorNumberMotor23PercentFormat = '%s/div[2]/div[%s]/table/tbody[%s]/tr[1]/td[7]';
+        $boatNumberBoat23PercentFormat = '%s/div[2]/div[%s]/table/tbody[%s]/tr[1]/td[8]';
 
         foreach (range(1, 6) as $bracket) {
             $nameXPath = sprintf($nameFormat, $this->baseXPath, $this->baseLevel + 5, $bracket);
             $numberClassNameXPath = sprintf($numberClassNameFormat, $this->baseXPath, $this->baseLevel + 5, $bracket);
             $branchNameBirthplaceNameAgeWeightXPath = sprintf($branchNameBirthplaceNameAgeWeightFormat, $this->baseXPath, $this->baseLevel + 5, $bracket);
             $flyingCountLateCountStartTimingXPath = sprintf($flyingCountLateCountStartTimingFormat, $this->baseXPath, $this->baseLevel + 5, $bracket);
-            $national123PercentagesXPath = sprintf($national123PercentagesFormat, $this->baseXPath, $this->baseLevel + 5, $bracket);
-            $local123PercentagesXPath = sprintf($local123PercentagesFormat, $this->baseXPath, $this->baseLevel + 5, $bracket);
-            $motorNumberMotor23PercentagesXPath = sprintf($motorNumberMotor23PercentagesFormat, $this->baseXPath, $this->baseLevel + 5, $bracket);
-            $boatNumberMotor23PercentagesXPath = sprintf($boatNumberBoat23PercentagesFormat, $this->baseXPath, $this->baseLevel + 5, $bracket);
+            $national123PercentXPath = sprintf($national123PercentFormat, $this->baseXPath, $this->baseLevel + 5, $bracket);
+            $local123PercentXPath = sprintf($local123PercentFormat, $this->baseXPath, $this->baseLevel + 5, $bracket);
+            $motorNumberMotor23PercentXPath = sprintf($motorNumberMotor23PercentFormat, $this->baseXPath, $this->baseLevel + 5, $bracket);
+            $boatNumberMotor23PercentXPath = sprintf($boatNumberBoat23PercentFormat, $this->baseXPath, $this->baseLevel + 5, $bracket);
 
             $name = $this->filterXPath($crawler, $nameXPath);
             $numberClassName = $this->filterXPath($crawler, $numberClassNameXPath);
             $branchNameBirthplaceNameAgeWeight = $this->filterXPath($crawler, $branchNameBirthplaceNameAgeWeightXPath);
             $flyingCountLateCountStartTiming = $this->filterXPath($crawler, $flyingCountLateCountStartTimingXPath);
-            $national123Percentages = $this->filterXPath($crawler, $national123PercentagesXPath);
-            $local123Percentages = $this->filterXPath($crawler, $local123PercentagesXPath);
-            $motorNumberMotor23Percentages = $this->filterXPath($crawler, $motorNumberMotor23PercentagesXPath);
-            $boatNumberBoat23Percentages = $this->filterXPath($crawler, $boatNumberMotor23PercentagesXPath);
+            $national123Percent = $this->filterXPath($crawler, $national123PercentXPath);
+            $local123Percent = $this->filterXPath($crawler, $local123PercentXPath);
+            $motorNumberMotor23Percent = $this->filterXPath($crawler, $motorNumberMotor23PercentXPath);
+            $boatNumberBoat23Percent = $this->filterXPath($crawler, $boatNumberMotor23PercentXPath);
 
             $name = Converter::convertToName($name);
 
             [$number, $classId] = $this->explodeNumberClassName($numberClassName);
             [$branchId, $birthplaceId, $age, $weight] = $this->explodeBranchNameBirthplaceNameAgeWeight($branchNameBirthplaceNameAgeWeight);
             [$flyingCount, $lateCount, $startTiming] = $this->explodeFlyingCountLateCountStartTiming($flyingCountLateCountStartTiming);
-            [$national1Percentages, $national2Percentages, $national3Percentages] = $this->explodeNational123Percentages($national123Percentages);
-            [$local1Percentages, $local2Percentages, $local3Percentages] = $this->explodeLocal123Percentages($local123Percentages);
-            [$motorNumber, $motor2Percentages, $motor3Percentages] = $this->explodeMotorNumberMotor23Percentages($motorNumberMotor23Percentages);
-            [$boatNumber, $boat2Percentages, $boat3Percentages] = $this->explodeBoatNumberBoat23Percentages($boatNumberBoat23Percentages);
+            [$national1Percent, $national2Percent, $national3Percent] = $this->explodeNational123Percent($national123Percent);
+            [$local1Percent, $local2Percent, $local3Percent] = $this->explodeLocal123Percent($local123Percent);
+            [$motorNumber, $motor2Percent, $motor3Percent] = $this->explodeMotorNumberMotor23Percent($motorNumberMotor23Percent);
+            [$boatNumber, $boat2Percent, $boat3Percent] = $this->explodeBoatNumberBoat23Percent($boatNumberBoat23Percent);
 
             $response['stadiums'][$stadiumId]['races'][$raceNumber]['racers'][$bracket]['bracket'] = $bracket;
             $response['stadiums'][$stadiumId]['races'][$raceNumber]['racers'][$bracket]['name'] = $name;
@@ -145,18 +145,18 @@ class ProgramCrawler extends BaseCrawler implements CrawlerInterface
             $response['stadiums'][$stadiumId]['races'][$raceNumber]['racers'][$bracket]['flying_count'] = $flyingCount;
             $response['stadiums'][$stadiumId]['races'][$raceNumber]['racers'][$bracket]['late_count'] = $lateCount;
             $response['stadiums'][$stadiumId]['races'][$raceNumber]['racers'][$bracket]['start_timing'] = $startTiming;
-            $response['stadiums'][$stadiumId]['races'][$raceNumber]['racers'][$bracket]['national_1_percentages'] = $national1Percentages;
-            $response['stadiums'][$stadiumId]['races'][$raceNumber]['racers'][$bracket]['national_2_percentages'] = $national2Percentages;
-            $response['stadiums'][$stadiumId]['races'][$raceNumber]['racers'][$bracket]['national_3_percentages'] = $national3Percentages;
-            $response['stadiums'][$stadiumId]['races'][$raceNumber]['racers'][$bracket]['local_1_percentages'] = $local1Percentages;
-            $response['stadiums'][$stadiumId]['races'][$raceNumber]['racers'][$bracket]['local_2_percentages'] = $local2Percentages;
-            $response['stadiums'][$stadiumId]['races'][$raceNumber]['racers'][$bracket]['local_3_percentages'] = $local3Percentages;
+            $response['stadiums'][$stadiumId]['races'][$raceNumber]['racers'][$bracket]['national_1_percent'] = $national1Percent;
+            $response['stadiums'][$stadiumId]['races'][$raceNumber]['racers'][$bracket]['national_2_percent'] = $national2Percent;
+            $response['stadiums'][$stadiumId]['races'][$raceNumber]['racers'][$bracket]['national_3_percent'] = $national3Percent;
+            $response['stadiums'][$stadiumId]['races'][$raceNumber]['racers'][$bracket]['local_1_percent'] = $local1Percent;
+            $response['stadiums'][$stadiumId]['races'][$raceNumber]['racers'][$bracket]['local_2_percent'] = $local2Percent;
+            $response['stadiums'][$stadiumId]['races'][$raceNumber]['racers'][$bracket]['local_3_percent'] = $local3Percent;
             $response['stadiums'][$stadiumId]['races'][$raceNumber]['racers'][$bracket]['motor_number'] = $motorNumber;
-            $response['stadiums'][$stadiumId]['races'][$raceNumber]['racers'][$bracket]['motor_2_percentages'] = $motor2Percentages;
-            $response['stadiums'][$stadiumId]['races'][$raceNumber]['racers'][$bracket]['motor_3_percentages'] = $motor3Percentages;
+            $response['stadiums'][$stadiumId]['races'][$raceNumber]['racers'][$bracket]['motor_2_percent'] = $motor2Percent;
+            $response['stadiums'][$stadiumId]['races'][$raceNumber]['racers'][$bracket]['motor_3_percent'] = $motor3Percent;
             $response['stadiums'][$stadiumId]['races'][$raceNumber]['racers'][$bracket]['boat_number'] = $boatNumber;
-            $response['stadiums'][$stadiumId]['races'][$raceNumber]['racers'][$bracket]['boat_2_percentages'] = $boat2Percentages;
-            $response['stadiums'][$stadiumId]['races'][$raceNumber]['racers'][$bracket]['boat_3_percentages'] = $boat3Percentages;
+            $response['stadiums'][$stadiumId]['races'][$raceNumber]['racers'][$bracket]['boat_2_percent'] = $boat2Percent;
+            $response['stadiums'][$stadiumId]['races'][$raceNumber]['racers'][$bracket]['boat_3_percent'] = $boat3Percent;
         }
 
         return $response;
@@ -239,78 +239,78 @@ class ProgramCrawler extends BaseCrawler implements CrawlerInterface
     }
 
     /**
-     * @param  string|null  $national123Percentages
+     * @param  string|null  $national123Percent
      * @return array
      */
-    protected function explodeNational123Percentages(string $national123Percentages = null): array
+    protected function explodeNational123Percent(string $national123Percent = null): array
     {
-        if (is_null($national123Percentages)) {
+        if (is_null($national123Percent)) {
             return array_fill(0, 3, null);
         }
 
-        [$national1Percentages, $national2Percentages, $national3Percentages] = explode(' ', trim($national123Percentages));
+        [$national1Percent, $national2Percent, $national3Percent] = explode(' ', trim($national123Percent));
 
-        $national1Percentages = Converter::convertToFloat($national1Percentages);
-        $national2Percentages = Converter::convertToFloat($national2Percentages);
-        $national3Percentages = Converter::convertToFloat($national3Percentages);
+        $national1Percent = Converter::convertToFloat($national1Percent);
+        $national2Percent = Converter::convertToFloat($national2Percent);
+        $national3Percent = Converter::convertToFloat($national3Percent);
 
-        return [$national1Percentages, $national2Percentages, $national3Percentages];
+        return [$national1Percent, $national2Percent, $national3Percent];
     }
 
     /**
-     * @param  string|null  $local123Percentages
+     * @param  string|null  $local123Percent
      * @return array
      */
-    protected function explodeLocal123Percentages(string $local123Percentages = null): array
+    protected function explodeLocal123Percent(string $local123Percent = null): array
     {
-        if (is_null($local123Percentages)) {
+        if (is_null($local123Percent)) {
             return array_fill(0, 3, null);
         }
 
-        [$local1Percentages, $local2Percentages, $local3Percentages] = explode(' ', trim($local123Percentages));
+        [$local1Percent, $local2Percent, $local3Percent] = explode(' ', trim($local123Percent));
 
-        $local1Percentages = Converter::convertToFloat($local1Percentages);
-        $local2Percentages = Converter::convertToFloat($local2Percentages);
-        $local3Percentages = Converter::convertToFloat($local3Percentages);
+        $local1Percent = Converter::convertToFloat($local1Percent);
+        $local2Percent = Converter::convertToFloat($local2Percent);
+        $local3Percent = Converter::convertToFloat($local3Percent);
 
-        return [$local1Percentages, $local2Percentages, $local3Percentages];
+        return [$local1Percent, $local2Percent, $local3Percent];
     }
 
     /**
-     * @param  string|null  $motorNumberMotor23Percentages
+     * @param  string|null  $motorNumberMotor23Percent
      * @return array
      */
-    protected function explodeMotorNumberMotor23Percentages(string $motorNumberMotor23Percentages = null): array
+    protected function explodeMotorNumberMotor23Percent(string $motorNumberMotor23Percent = null): array
     {
-        if (is_null($motorNumberMotor23Percentages)) {
+        if (is_null($motorNumberMotor23Percent)) {
             return array_fill(0, 3, null);
         }
 
-        [$motorNumber, $motor2Percentages, $motor3Percentages] = explode(' ', trim($motorNumberMotor23Percentages));
+        [$motorNumber, $motor2Percent, $motor3Percent] = explode(' ', trim($motorNumberMotor23Percent));
 
         $motorNumber = Converter::convertToInt($motorNumber);
-        $motor2Percentages = Converter::convertToFloat($motor2Percentages);
-        $motor3Percentages = Converter::convertToFloat($motor3Percentages);
+        $motor2Percent = Converter::convertToFloat($motor2Percent);
+        $motor3Percent = Converter::convertToFloat($motor3Percent);
 
-        return [$motorNumber, $motor2Percentages, $motor3Percentages];
+        return [$motorNumber, $motor2Percent, $motor3Percent];
     }
 
     /**
-     * @param  string|null  $boatNumberBoat23Percentages
+     * @param  string|null  $boatNumberBoat23Percent
      * @return array
      */
-    protected function explodeBoatNumberBoat23Percentages(string $boatNumberBoat23Percentages = null): array
+    protected function explodeBoatNumberBoat23Percent(string $boatNumberBoat23Percent = null): array
     {
-        if (is_null($boatNumberBoat23Percentages)) {
+        if (is_null($boatNumberBoat23Percent)) {
             return array_fill(0, 3, null);
         }
 
-        [$boatNumber, $boat2Percentages, $boat3Percentages] = explode(' ', trim($boatNumberBoat23Percentages));
+        [$boatNumber, $boat2Percent, $boat3Percent] = explode(' ', trim($boatNumberBoat23Percent));
 
         $boatNumber = Converter::convertToInt($boatNumber);
-        $boat2Percentages = Converter::convertToFloat($boat2Percentages);
-        $boat3Percentages = Converter::convertToFloat($boat3Percentages);
+        $boat2Percent = Converter::convertToFloat($boat2Percent);
+        $boat3Percent = Converter::convertToFloat($boat3Percent);
 
-        return [$boatNumber, $boat2Percentages, $boat3Percentages];
+        return [$boatNumber, $boat2Percent, $boat3Percent];
     }
 }
