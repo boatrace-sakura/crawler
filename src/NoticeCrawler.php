@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Boatrace\Sakura;
 
 use Carbon\CarbonImmutable as Carbon;

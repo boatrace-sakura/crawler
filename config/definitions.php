@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 return [
     'Crawler' => \DI\create('\Boatrace\Sakura\Crawler')->constructor(
         \DI\get('MainCrawler')
