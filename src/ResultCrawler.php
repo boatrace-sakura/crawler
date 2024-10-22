@@ -216,7 +216,7 @@ class ResultCrawler extends BaseCrawler implements CrawlerInterface
             $refundXPath = sprintf($refundFormat, $this->baseXPath, $this->baseLevel + 6, $purchaseType, $trLevel, $tdLevel);
             $refund = $this->filterXPath($crawler, $refundXPath);
 
-            if (! str_starts_with($refund, '¥')) {
+            if (! str_starts_with($refund ?? '', '¥')) {
                 break;
             }
 
