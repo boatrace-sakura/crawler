@@ -32,7 +32,7 @@ abstract class BaseCrawler
      * @param  \Symfony\Component\BrowserKit\HttpBrowser  $httpBrowser
      * @return void
      */
-    protected function __construct(HttpBrowser $httpBrowser)
+    public function __construct(HttpBrowser $httpBrowser)
     {
         $this->httpBrowser = $httpBrowser;
     }

@@ -106,7 +106,7 @@ class MainCrawler
      * @param  string  $date
      * @return array
      */
-    protected function getStadiumIds(string $date): array
+    public function getStadiumIds(string $date): array
     {
         return $this->getCrawler('stadium')->crawlStadiumId($date);
     }
@@ -114,7 +114,7 @@ class MainCrawler
     /**
      * @return array
      */
-    protected function getRaceNumbers(): array
+    public function getRaceNumbers(): array
     {
         return range(1, 12);
     }
