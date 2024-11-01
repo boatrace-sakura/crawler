@@ -24,15 +24,6 @@ class ProgramCrawler extends BaseCrawler implements CrawlerInterface
     protected $baseXPath = 'descendant-or-self::body/main/div/div/div';
 
     /**
-     * @param  \Symfony\Component\BrowserKit\HttpBrowser  $httpBrowser
-     * @return void
-     */
-    public function __construct(HttpBrowser $httpBrowser)
-    {
-        parent::__construct($httpBrowser);
-    }
-
-    /**
      * @param  array   $response
      * @param  string  $date
      * @param  int     $stadiumId

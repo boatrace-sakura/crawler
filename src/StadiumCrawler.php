@@ -13,15 +13,6 @@ use Symfony\Component\BrowserKit\HttpBrowser;
 class StadiumCrawler extends BaseCrawler
 {
     /**
-     * @param  \Symfony\Component\BrowserKit\HttpBrowser  $httpBrowser
-     * @return void
-     */
-    public function __construct(HttpBrowser $httpBrowser)
-    {
-        parent::__construct($httpBrowser);
-    }
-
-    /**
      * @param  string  $date
      * @return array
      */
