@@ -40,7 +40,7 @@ class Crawler
     /**
      * @param  string  $name
      * @param  array   $arguments
-     * @return \Illuminate\Support\Collection
+     * @return \Illuminate\Support\Collection|\Boatrace\Sakura\BaseCrawler|BaseCrawler
      */
     public function __call(string $name, array $arguments): Collection
     {
@@ -50,9 +50,9 @@ class Crawler
     /**
      * @param  string  $name
      * @param  array   $arguments
-     * @return \Illuminate\Support\Collection
+     * @return \Illuminate\Support\Collection|\Boatrace\Sakura\BaseCrawler
      */
-    public static function __callStatic(string $name, array $arguments): Collection
+    public static function __callStatic(string $name, array $arguments): Collection|BaseCrawler
     {
         return call_user_func_array([self::getInstance(), $name], $arguments);
     }
