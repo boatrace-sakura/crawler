@@ -14,11 +14,6 @@ use Symfony\Component\DomCrawler\Crawler;
 abstract class BaseCrawler
 {
     /**
-     * @var \Symfony\Component\BrowserKit\HttpBrowser
-     */
-    protected $httpBrowser;
-
-    /**
      * @var string
      */
     protected $baseUrl = 'https://www.boatrace.jp';
@@ -32,10 +27,7 @@ abstract class BaseCrawler
      * @param  \Symfony\Component\BrowserKit\HttpBrowser  $httpBrowser
      * @return void
      */
-    public function __construct(HttpBrowser $httpBrowser)
-    {
-        $this->httpBrowser = $httpBrowser;
-    }
+    public function __construct(protected HttpBrowser $httpBrowser){}
 
     /**
      * @param  \Symfony\Component\DomCrawler\Crawler  $crawler

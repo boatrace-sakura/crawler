@@ -14,11 +14,6 @@ use Illuminate\Support\Collection;
 class Crawler
 {
     /**
-     * @var \Boatrace\Sakura\MainCrawler
-     */
-    protected $crawler;
-
-    /**
      * @var \Boatrace\Sakura\Crawler
      */
     protected static $instance;
@@ -32,10 +27,7 @@ class Crawler
      * @param  \Boatrace\Sakura\MainCrawler  $crawler
      * @return void
      */
-    public function __construct(MainCrawler $crawler)
-    {
-        $this->crawler = $crawler;
-    }
+    public function __construct(protected MainCrawler $crawler){}
 
     /**
      * @param  string  $name
