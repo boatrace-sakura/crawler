@@ -34,7 +34,7 @@ class Crawler
      * @param  array   $arguments
      * @return \Illuminate\Support\Collection|\Boatrace\Sakura\BaseCrawler|BaseCrawler
      */
-    public function __call(string $name, array $arguments): Collection
+    public function __call(string $name, array $arguments): Collection|BaseCrawler
     {
         return call_user_func_array([$this->crawler, $name], $arguments);
     }
