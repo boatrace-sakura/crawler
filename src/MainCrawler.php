@@ -104,18 +104,18 @@ class MainCrawler
 
     /**
      * @param  string  $date
-     * @return array
+     * @return \Illuminate\Support\Collection
      */
-    public function getStadiumIds(string $date): array
+    public function getStadiumIds(string $date): Collection
     {
-        return $this->getCrawler('stadium')->crawlStadiumId($date);
+        return collect($this->getCrawler('stadium')->crawlStadiumId($date));
     }
 
     /**
-     * @return array
+     * @return \Illuminate\Support\Collection
      */
-    public function getRaceNumbers(): array
+    public function getRaceNumbers(): Collection
     {
-        return range(1, 12);
+        return collect(range(1, 12));
     }
 }
