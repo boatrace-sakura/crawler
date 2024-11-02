@@ -177,4 +177,20 @@ class MainCrawlerTest extends PHPUnitTestCase
         $this->assertSame(56.83, $response->get('stadiums')->get(24)->get('races')->get(1)->get('racers')->get(5)->get('boat_3_percent'));
         $this->assertSame(42.55, $response->get('stadiums')->get(24)->get('races')->get(1)->get('racers')->get(6)->get('boat_3_percent'));
     }
+
+    /**
+     * @return void
+     */
+    public function testCrawlStadium(): void
+    {
+        $response = $this->crawler->crawlStadium('2017-03-31');
+        $this->assertSame('平和島', $response->get(4));
+        $this->assertSame('多摩川', $response->get(5));
+        $this->assertSame('浜名湖', $response->get(6));
+        $this->assertSame('三国', $response->get(10));
+        $this->assertSame('丸亀', $response->get(15));
+        $this->assertSame('徳山', $response->get(18));
+        $this->assertSame('唐津', $response->get(23));
+        $this->assertSame('大村', $response->get(24));
+    }
 }
