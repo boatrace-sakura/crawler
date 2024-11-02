@@ -193,7 +193,7 @@ class ProgramCrawler extends BaseCrawler implements CrawlerInterface
      * @param  string|null  $branchNameBirthplaceNameAgeWeight
      * @return array
      */
-    protected function explodeBranchNameBirthplaceNameAgeWeight(string $branchNameBirthplaceNameAgeWeight = null): array
+    protected function explodeBranchNameBirthplaceNameAgeWeight(?string $branchNameBirthplaceNameAgeWeight = null): array
     {
         if (is_null($branchNameBirthplaceNameAgeWeight)) {
             return array_fill(0, 4, null);
