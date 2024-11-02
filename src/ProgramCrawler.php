@@ -253,7 +253,7 @@ class ProgramCrawler extends BaseCrawler implements CrawlerInterface
      * @param  string|null  $local123Percent
      * @return array
      */
-    protected function explodeLocal123Percent(string $local123Percent = null): array
+    protected function explodeLocal123Percent(?string $local123Percent = null): array
     {
         if (is_null($local123Percent)) {
             return array_fill(0, 3, null);
