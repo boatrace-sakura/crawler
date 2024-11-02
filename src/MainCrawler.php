@@ -58,6 +58,8 @@ class MainCrawler
      */
     public function crawl(string $name, string $date, ?int $stadiumId = null, ?int $raceNumber = null): Collection
     {
+        $response = [];
+
         $stadiumIds = is_null($stadiumId)
             ? $this->crawlStadiumId($date)
             : [$stadiumId];
@@ -66,11 +68,10 @@ class MainCrawler
             ? range(1, 12)
             : [$raceNumber];
 
-        $response = [];
-
         foreach ($stadiumIds as $stadiumId) {
             foreach ($raceNumbers as $raceNumber) {
-                $response = $this->getCrawler($name)->crawl($response, $date, $stadiumId, $raceNumber);
+                $response = $this->getCrawler($name)
+                    ->crawl($response, $date, $stadiumId, $raceNumber);
             }
         }
 
