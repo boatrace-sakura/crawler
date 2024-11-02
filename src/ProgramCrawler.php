@@ -175,7 +175,7 @@ class ProgramCrawler extends BaseCrawler implements CrawlerInterface
      * @param  string|null  $numberClassName
      * @return array
      */
-    protected function explodeNumberClassName(string $numberClassName = null): array
+    protected function explodeNumberClassName(?string $numberClassName = null): array
     {
         if (is_null($numberClassName)) {
             return array_fill(0, 2, null);
