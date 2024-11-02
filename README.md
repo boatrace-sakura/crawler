@@ -19,6 +19,8 @@ require __DIR__ . '/vendor/autoload.php';
 
 use Boatrace\Sakura\Crawler;
 
+var_dump(Crawler::crawlStadium('2017-03-31')); // 2017年03月31日, 開催場
+
 var_dump(Crawler::crawlProgram('2017-03-31')); // 2017年03月31日, 出走表
 var_dump(Crawler::crawlProgram('2017-03-31', 24)); // 2017年03月31日, 大村, 出走表
 var_dump(Crawler::crawlProgram('2017-03-31', 24, 1)); // 2017年03月31日, 大村, 1R, 出走表
