@@ -234,7 +234,7 @@ class ProgramCrawler extends BaseCrawler implements CrawlerInterface
      * @param  string|null  $national123Percent
      * @return array
      */
-    protected function explodeNational123Percent(string $national123Percent = null): array
+    protected function explodeNational123Percent(?string $national123Percent = null): array
     {
         if (is_null($national123Percent)) {
             return array_fill(0, 3, null);
