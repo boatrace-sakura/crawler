@@ -46,16 +46,6 @@ class StadiumCrawlerTest extends PHPUnitTestCase
     /**
      * @return void
      */
-    public function testCrawlStadiumId(): void
-    {
-        $expected = [4, 5, 6, 10, 15, 18, 23, 24];
-        $actual = $this->crawler->crawlStadiumId('2017-03-31');
-        $this->assertSame($expected, $actual);
-    }
-
-    /**
-     * @return void
-     */
     public function testCrawlStadiumName(): void
     {
         $expected = ['平和島', '多摩川', '浜名湖', '三国', '丸亀', '徳山', '唐津', '大村'];

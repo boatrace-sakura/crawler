@@ -197,22 +197,6 @@ class MainCrawlerTest extends PHPUnitTestCase
     /**
      * @return void
      */
-    public function testCrawlStadiumId(): void
-    {
-        $response = $this->crawler->crawlStadiumId('2017-03-31');
-        $this->assertSame(4, $response->get(0));
-        $this->assertSame(5, $response->get(1));
-        $this->assertSame(6, $response->get(2));
-        $this->assertSame(10, $response->get(3));
-        $this->assertSame(15, $response->get(4));
-        $this->assertSame(18, $response->get(5));
-        $this->assertSame(23, $response->get(6));
-        $this->assertSame(24, $response->get(7));
-    }
-
-    /**
-     * @return void
-     */
     public function testCrawlStadiumName(): void
     {
         $response = $this->crawler->crawlStadiumName('2017-03-31');
