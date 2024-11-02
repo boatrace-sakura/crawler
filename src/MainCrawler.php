@@ -126,15 +126,6 @@ class MainCrawler
     }
 
     /**
-     * @param  string  $date
-     * @return \Illuminate\Support\Collection
-     */
-    public function getStadiumIds(string $date): Collection
-    {
-        return collect($this->getCrawler('stadium')->crawlStadiumId($date));
-    }
-
-    /**
      * @return \Illuminate\Support\Collection
      */
     public function getRaceNumbers(): Collection
