@@ -158,7 +158,7 @@ class ProgramCrawler extends BaseCrawler implements CrawlerInterface
      * @param  string|null  $subtitleDistance
      * @return array
      */
-    protected function explodeSubtitleDistance(string $subtitleDistance = null): array
+    protected function explodeSubtitleDistance(?string $subtitleDistance = null): array
     {
         if (is_null($subtitleDistance)) {
             return array_fill(0, 2, null);
