@@ -91,6 +91,15 @@ class MainCrawler
     }
 
     /**
+     * @param  string  $date
+     * @return \Illuminate\Support\Collection
+     */
+    public function crawlStadiumId(string $date): Collection
+    {
+        return collect($this->getCrawler('stadium')->crawlStadiumId($date));
+    }
+
+    /**
      * @param  string  $name
      * @return \Boatrace\Sakura\BaseCrawler
      */

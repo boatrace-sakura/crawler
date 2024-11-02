@@ -180,4 +180,20 @@ class CrawlerTest extends PHPUnitTestCase
         $this->assertSame('唐津', $response->get(23));
         $this->assertSame('大村', $response->get(24));
     }
+
+    /**
+     * @return void
+     */
+    public function testCrawlStadiumId(): void
+    {
+        $response = Crawler::crawlStadiumId('2017-03-31');
+        $this->assertSame(4, $response->get(0));
+        $this->assertSame(5, $response->get(1));
+        $this->assertSame(6, $response->get(2));
+        $this->assertSame(10, $response->get(3));
+        $this->assertSame(15, $response->get(4));
+        $this->assertSame(18, $response->get(5));
+        $this->assertSame(23, $response->get(6));
+        $this->assertSame(24, $response->get(7));
+    }
 }
