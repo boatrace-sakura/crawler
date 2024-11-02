@@ -61,7 +61,7 @@ class MainCrawler
         $response = [];
 
         $stadiumIds = is_null($stadiumId)
-            ? $this->crawlStadiumId($date)
+            ? $this->crawlStadium($date)->keys()->all()
             : [$stadiumId];
 
         $raceNumbers = is_null($raceNumber)
