@@ -124,12 +124,4 @@ class MainCrawler
         $builder->addDefinitions(__DIR__ . '/../config/definitions.php');
         return $builder->build();
     }
-
-    /**
-     * @return \Illuminate\Support\Collection
-     */
-    public function getRaceNumbers(): Collection
-    {
-        return collect(range(1, 12));
-    }
 }
