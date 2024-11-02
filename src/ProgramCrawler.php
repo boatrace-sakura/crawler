@@ -215,7 +215,7 @@ class ProgramCrawler extends BaseCrawler implements CrawlerInterface
      * @param  string|null  $flyingCountLateCountStartTiming
      * @return array
      */
-    protected function explodeFlyingCountLateCountStartTiming(string $flyingCountLateCountStartTiming = null): array
+    protected function explodeFlyingCountLateCountStartTiming(?string $flyingCountLateCountStartTiming = null): array
     {
         if (is_null($flyingCountLateCountStartTiming)) {
             return array_fill(0, 3, null);
