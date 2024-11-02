@@ -272,7 +272,7 @@ class ProgramCrawler extends BaseCrawler implements CrawlerInterface
      * @param  string|null  $motorNumberMotor23Percent
      * @return array
      */
-    protected function explodeMotorNumberMotor23Percent(string $motorNumberMotor23Percent = null): array
+    protected function explodeMotorNumberMotor23Percent(?string $motorNumberMotor23Percent = null): array
     {
         if (is_null($motorNumberMotor23Percent)) {
             return array_fill(0, 3, null);
