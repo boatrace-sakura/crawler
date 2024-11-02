@@ -56,7 +56,7 @@ class MainCrawler
      * @param  int|null  $raceNumber
      * @return \Illuminate\Support\Collection
      */
-    public function crawl(string $name, string $date, int $stadiumId = null, int $raceNumber = null): Collection
+    public function crawl(string $name, string $date, ?int $stadiumId = null, ?int $raceNumber = null): Collection
     {
         $stadiumIds = is_null($stadiumId)
             ? $this->crawlStadiumId($date)
