@@ -42,14 +42,4 @@ class StadiumCrawlerTest extends PHPUnitTestCase
             24 => '大村',
         ], $this->crawler->crawl('2017-03-31'));
     }
-
-    /**
-     * @return void
-     */
-    public function testCrawlStadiumName(): void
-    {
-        $expected = ['平和島', '多摩川', '浜名湖', '三国', '丸亀', '徳山', '唐津', '大村'];
-        $actual = $this->crawler->crawlStadiumName('2017-03-31');
-        $this->assertSame($expected, $actual);
-    }
 }
