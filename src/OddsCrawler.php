@@ -32,8 +32,6 @@ class OddsCrawler extends BaseCrawler implements CrawlerInterface
     public function crawl(array $response, string $date, int $stadiumId, int $raceNumber): array
     {
         $date = Converter::convertToDate($date);
-        $stadiumId = Converter::convertToInt($stadiumId);
-        $raceNumber = Converter::convertToInt($raceNumber);
         $boatraceDate = Carbon::parse($date)->format('Ymd');
 
         $crawler1Format = '%s/owpc/pc/race/oddstf?hd=%s&jcd=%02d&rno=%d';
