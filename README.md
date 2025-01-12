@@ -1,6 +1,6 @@
 # Crawler in the Boatrace Venture Project
 
-[![Build Status](https://github.com/BoatraceVentureProject/Crawler/workflows/tests/badge.svg)](https://github.com/BoatraceVentureProject/Crawler/actions?query=workflow%3Atests)
+[![Build Status](https://github.com/BoatraceVentureProject/Crawler/workflows/Tests/badge.svg)](https://github.com/BoatraceVentureProject/Crawler/actions?query=workflow%3Atests)
 [![codecov](https://codecov.io/gh/BoatraceVentureProject/Crawler/graph/badge.svg?token=ASXRLEJBDV)](https://codecov.io/gh/BoatraceVentureProject/Crawler)
 [![Latest Stable Version](https://poser.pugx.org/bvp/crawler/v/stable)](https://packagist.org/packages/bvp/crawler)
 [![Latest Unstable Version](https://poser.pugx.org/bvp/crawler/v/unstable)](https://packagist.org/packages/bvp/crawler)
