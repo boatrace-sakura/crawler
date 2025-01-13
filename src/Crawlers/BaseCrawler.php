@@ -45,7 +45,7 @@ abstract class BaseCrawler
      */
     protected function filterXPath(Crawler $crawler, string $xpath): ?string
     {
-        return count($crawler->filterXPath($xpath))
+        return $crawler->filterXPath($xpath)->count()
             ? Converter::string($crawler->filterXPath($xpath)->text())
             : null;
     }
@@ -57,7 +57,7 @@ abstract class BaseCrawler
      */
     protected function filterXPathForWindDirection(Crawler $crawler, string $xpath): ?string
     {
-        return count($crawler->filterXPath($xpath))
+        return $crawler->filterXPath($xpath)->count()
             ? Converter::string($crawler->filterXPath($xpath)->attr('class'))
             : null;
     }
@@ -69,7 +69,7 @@ abstract class BaseCrawler
      */
     protected function filterXPathForOdds(Crawler $crawler, string $xpath): ?float
     {
-        return count($crawler->filterXPath($xpath))
+        return $crawler->filterXPath($xpath)->count()
             ? Converter::float($crawler->filterXPath($xpath)->text())
             : null;
     }
@@ -83,7 +83,7 @@ abstract class BaseCrawler
     {
         $response = [];
 
-        if (count($crawler->filterXPath($xpath))) {
+        if ($crawler->filterXPath($xpath)->count()) {
             if (count($oddses = explode('-', $crawler->filterXPath($xpath)->text())) === 2) {
                 $lowerLimit = Converter::float(array_shift($oddses));
                 $upperLimit = Converter::float(array_shift($oddses));
